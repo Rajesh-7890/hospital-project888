@@ -1,22 +1,64 @@
+import { NavLink } from 'react-router-dom';
 import './style.css';
 
-const Home = () => {
+const UserHome = () => {
   return (
-    <div className="home">
-      <main className="wrapper">
-        <div className="container">
+    <div className="user-home">
+      <div className="sidebar">
+        <div className="details">
+          <img
+            className="img1"
+            src="/PatientProfilePic.png"
+            alt="Patient Profile"
+          />
+          <p className="name">Patient Name</p>
+        </div>
+        <div className="contents">
+          <div className="navcontent">
+            <NavLink className="link" to="">
+              Home
+            </NavLink>
+            <NavLink className="link" to="">
+              Booking
+            </NavLink>
+            <NavLink className="link" to="">
+              Add Slot
+            </NavLink>
+          </div>
+          <div className="logout">
+            <NavLink className="link" to="">
+              Logout
+            </NavLink>
+          </div>
+        </div>
+      </div>
+
+      <div className="booking-slot">
+        <div className="form-container">
           <h1 className="form-head">Book Your Appointment</h1>
           <p className="sub-head">Schedule Your Consultation with Ease</p>
           <form action="#" method="POST">
             <div className="form-group">
-              <label htmlFor="city">Select City</label>
-              <select id="city" name="city" required>
+              <label htmlFor="department">Select Department</label>
+              <select id="department" name="department" required>
                 <option value="" disabled>
-                  Select Your City
+                  Select Your Department
                 </option>
-                <option value="balasore">Balasore</option>
-                <option value="bhadrak">Bhadrak</option>
-                <option value="baripada">Baripada</option>
+                <option value="cardiology">Cardiology</option>
+                <option value="neurology">Neurology</option>
+                <option value="orthopedics">Orthopedics</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="doctor">Select Doctor</label>
+              <select id="doctor" name="doctor" required>
+                <option value="" disabled>
+                  Select Your Doctor
+                </option>
+                <option value="dr_smith">Dr. Smith</option>
+                <option value="dr_jones">Dr. Jones</option>
+                <option value="dr_brown">Dr. Brown</option>
               </select>
             </div>
 
@@ -35,8 +77,8 @@ const Home = () => {
                 max="20:00"
                 required
               />
+              <p className="note">(Visiting hours are 8am to 8pm)</p>
             </div>
-            <p className="note">(Visiting hours are 8am to 8pm)</p>
 
             <div className="form-group">
               <label htmlFor="name">Full Name*</label>
@@ -85,9 +127,9 @@ const Home = () => {
             </button>
           </form>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default UserHome;

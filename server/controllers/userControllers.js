@@ -9,40 +9,48 @@ module.exports.getUser = async (req, res) => {
 };
 
 module.exports.signupUser = async (req, res) => {
-  console.log(req.body);
-  const user = await User.findOne({ email: req.body.email });
-  if (user) {
-    return res.status(403).json({ message: 'Email already taken' });
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      return res.status(403).json({ message: 'Email already taken' });
+    }
+
+    const hpassword = await bcrypt.hash(req.body.password, 10);
+
+    const response = await User.create({
+      ...req.body,
+      password: hpassword,
+    });
+
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASS,
+      },
+    });
+
+    let mailOptions = {
+      from: process.env.EMAIL,
+      to: req.body.email,
+      subject: 'Login creds for DocBooking App',
+      text: `your emailID is :${req.body.email} and ur password is :${req.body.password}`,
+    };
+
+    transporter.sendMail(mailOptions, error => {
+      if (error) {
+        console.log('Email error:', error);
+        return res.status(404).json({ ErrorOccurred: error });
+      } else {
+        return res.status(201).json({ message: 'Mail Send', value: response });
+      }
+    });
+  } catch (err) {
+    console.log('Signup error:', err);
+    res
+      .status(500)
+      .json({ message: 'Server error during signup', error: err.message });
   }
-
-  const hpassword = await bcrypt.hash(req.body.password, 2);
-
-  const response = await User.create({
-    ...req.body,
-    password: hpassword,
-  });
-
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASS,
-    },
-  });
-
-  let mailOptions = {
-    from: process.env.EMAIL,
-    to: req.body.email,
-    subject: 'Login creds for DocBooking App',
-    text: `your emailID is :${req.body.email} and ur password is :${req.body.password}`,
-  };
-
-  transporter.sendMail(mailOptions, error => {
-    if (error) {
-      return res.status(404).json({ ErrorOccurred: error });
-    } else
-      return res.status(201).json({ message: 'Mail Send', value: response });
-  });
 };
 
 module.exports.loginUser = async (req, res) => {
@@ -60,7 +68,7 @@ module.exports.loginUser = async (req, res) => {
     console.log('error');
   }
 
-  const key = jwt.sign({ id: user._id, role: 'USER' }, process.env.KEY, {
+  const key = jwt.sign({ id: user._id, role: 'user' }, process.env.KEY, {
     expiresIn: '500d',
   });
 

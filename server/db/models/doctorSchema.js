@@ -37,12 +37,20 @@ const doctorSchema = mongoose.Schema(
     confirmpassword: {
       type: String,
     },
+    role: {
+      type: String,
+      enum: ['admin', 'doctor', 'user'],
+      default: 'doctor', // Default value
+      // required: true,
+    },
     department: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Department',
     },
+
     hospital: {
       type: mongoose.Schema.Types.ObjectId,
+      name: String,
       ref: 'Hospital',
     },
   },

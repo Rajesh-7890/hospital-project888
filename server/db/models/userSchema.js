@@ -4,27 +4,39 @@ const userSchema = mongoose.Schema(
   {
     firstname: {
       type: String,
-      required: true,
-      trim: true,
     },
     lastname: {
       type: String,
-      //   required: true,
-      trim: true,
     },
     email: {
       type: String,
-      //   required: true,
-      unique: true,
       trim: true,
     },
     password: {
       type: String,
-      trim: true,
     },
     confirmPassword: {
       type: String,
-      trim: true,
+    },
+    mobilenumber: {
+      type: String,
+    },
+
+    address: {
+      type: String,
+    },
+
+    gender: {
+      type: String,
+    },
+    DOB: {
+      type: Date,
+    },
+
+    role: {
+      type: String,
+      enum: ['admin', 'doctor', 'user'],
+      default: 'user',
     },
   },
   { timestamps: true }

@@ -2,20 +2,42 @@ const Doctor = require('../db/models/doctorSchema');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const uploads = require('../middlewares/upload');
+const mongoose = require('mongoose');
 
 module.exports.getDoctors = async (req, res) => {
-  const doctors = await Doctor.find();
+  const doctors = await Doctor.find().populate('department', 'name');
   res.status(200).json(doctors);
 };
 
+module.exports.getDoctorByDepartmentId = async (req, res) => {
+  const { departmentId } = req.params;
+
+  try {
+    // Ensure the departmentId is converted to an ObjectId
+    const doctors = await Doctor.find({
+      department: new mongoose.Types.ObjectId(departmentId),
+    }).populate('department', 'name');
+    console.log('Doctors found:', doctors); // Log the results
+    res.status(200).json(doctors);
+  } catch (error) {
+    console.error('Error finding doctors by department:', error);
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching doctors.' });
+  }
+};
+
 module.exports.signupDoctor = async (req, res) => {
+  console.log(req.file);
   const doctor = await Doctor.findOne({ email: req.body.email });
   if (doctor) {
     return res.status(403).json({ message: 'Email already taken' });
   }
 
+  const imageLink = `http://localhost:${process.env.PORT}/uploads/${req.file.originalname}`;
+
   const hashedpassword = await bcrypt.hash(req.body.password, 2);
-  const imageLink = `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`;
 
   const response = await Doctor.create({
     ...req.body,
@@ -60,16 +82,18 @@ module.exports.loginDoctor = async (req, res) => {
   } catch {
     console.log('error');
   }
-  console.log(doctor._id);
+
   const token = jwt.sign(
-    { id: doctor._id, role: 'DOCTOR' },
+    { id: doctor._id, role: 'doctor' },
     process.env.TOKEN,
-    { expiresIn: '500d' }
+    { expiresIn: '365d' }
   );
 
-  res
-    .status(201)
-    .json({ message: 'You are logged in', Token: token, id: doctor._id });
+  res.status(201).json({
+    message: 'You are logged in',
+    Token: token,
+    id: doctor._id,
+  });
 };
 
 module.exports.forgotpasswords = async (req, res) => {

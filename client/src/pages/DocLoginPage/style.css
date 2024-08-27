@@ -1,0 +1,89 @@
+.doclogin {
+  font-family: Arial, sans-serif;
+  background: url('/Doctor.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  padding-left: 200px;
+}
+
+.loginContainer {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center;
+}
+
+.loginContainer h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.inputGroup {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.forgotPassword {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.forgotPassword a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgotPassword a:hover {
+  text-decoration: underline;
+  font-size: 15px;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  color: black;
+  background-color: #0056b3;
+}
+
+.signupLink {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signupLink a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.signupLink a:hover {
+  text-decoration: underline;
+  font-size: 14px;
+}

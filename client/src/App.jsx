@@ -1,18 +1,37 @@
 import { Routes, Route } from 'react-router-dom';
-import Signup from './pages/SignupPage';
-import Login from './pages/loginpage';
+import DocLogin from './pages/DocLoginPage';
+import DocSignup from './pages/DocSignupPage';
+import UserLogin from './pages/UserLoginPage';
+import UserSignup from './pages/UserSignupPage';
+import UserHome from './pages/userHomePage';
 import DocHome from './pages/DocHome';
-import UserHome from './pages/UserHome';
+import DocBookingPage from './pages/DocBooking';
+import DocSlotPage from './pages/DocSlotPage';
+import UserSlotPage from './pages/UserSlotPage';
+import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dochome" element={<DocHome />} />
-        <Route path="/userhome" element={<UserHome />} />
+        <Route path="/doctor/login" element={<DocLogin />} />
+        <Route path="/doctor/signup" element={<DocSignup />} />
+
+        <Route path="/user/home" element={<UserHome />} />
+        <Route path="/doctor/home" element={<DocHome />} />
+
+        <Route path="/user/login" element={<UserLogin />} />
+        <Route path="/user/signup" element={<UserSignup />} />
+
+        <Route element={<PrivateRoute role="doctor" />}>
+          <Route path="/doctor/bookingpage" element={<DocBookingPage />} />
+          <Route path="/doctor/slotpage" element={<DocSlotPage />} />
+        </Route>
+
+        <Route element={<PrivateRoute role="user" />}>
+          <Route path="/user/slotpage" element={<UserSlotPage />} />
+        </Route>
       </Routes>
     </>
   );

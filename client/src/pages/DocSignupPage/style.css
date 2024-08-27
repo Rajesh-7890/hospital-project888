@@ -1,0 +1,81 @@
+.main {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e0f7fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensures the body covers the full viewport height */
+  overflow-y: auto; /* Allows vertical scrolling if content overflows */
+}
+
+.docSignup {
+  width: 100%;
+  max-width: 800px; /* Adjusted for horizontal layout */
+  padding: 20px;
+  margin: 20px 0; /* Adds some margin at the top and bottom */
+}
+
+.signup-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+h2 {
+  text-align: center;
+  color: #00796b;
+  margin-bottom: 20px;
+}
+
+form {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); /* Two columns for horizontal layout */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  color: #00796b;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #b2dfdb;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  resize: vertical; /* Allows resizing only vertically */
+}
+
+.signup-button {
+  grid-column: span 2; /* Button spans across both columns */
+  width: 100%;
+  padding: 12px;
+  background-color: #00796b;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.signup-button:hover {
+  background-color: #004d40;
+}
