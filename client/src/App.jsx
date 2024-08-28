@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import DocLogin from './pages/DocLoginPage';
 import DocSignup from './pages/DocSignupPage';
 import UserLogin from './pages/UserLoginPage';

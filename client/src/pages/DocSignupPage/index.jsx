@@ -3,7 +3,7 @@ import './style.css';
 const DocSignup = () => {
   return (
     <div className="main">
-      <div className="docSignup">
+      <div className="doc-ignup">
         <div className="signup-container">
           <h2>DOCTOR Sign Up</h2>
           <form>
@@ -45,9 +45,7 @@ const DocSignup = () => {
               <label htmlFor="image">Profile Image</label>
               <input type="file" id="image" accept="image/*" required />
             </div>
-            <button type="submit" className="signup-button">
-              Sign Up
-            </button>
+            <button className="signup-button">Sign Up</button>
           </form>
         </div>
       </div>

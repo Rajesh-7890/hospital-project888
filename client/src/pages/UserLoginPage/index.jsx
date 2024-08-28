@@ -4,6 +4,7 @@ import axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
 
 import './style.css';
+import { toast } from 'react-toastify';
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -23,9 +24,11 @@ const UserLogin = () => {
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.id);
+      toast.success('Login sucessfully');
 
       navigate('/user/home');
     } catch (e) {
+      toast.error('Email id or Password is incorrect');
       console.log('Email id or Password is incorrect');
       // console.log(e);
     }

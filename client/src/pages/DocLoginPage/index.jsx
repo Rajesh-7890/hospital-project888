@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 import './style.css';
 
@@ -26,14 +27,17 @@ const DocLogin = () => {
 
       navigate('/doctor/home');
     } catch (e) {
+      toast.error('Email id or Password is incorrect');
       console.log('Email id or Password is incorrect');
       // console.log(e);
     }
+    toast.success('Login Sucessfull');
   };
 
   return (
     <div className="doclogin">
       <div className="loginContainer">
+        <ToastContainer />
         <h2>DOCTOR Login</h2>
         <div className="inputGroup">
           <label htmlFor="email">Email ID:</label>

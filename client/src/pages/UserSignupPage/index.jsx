@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../utils/axios';
 
 import { useState } from 'react';
@@ -34,10 +34,12 @@ const UserSignup = () => {
       console.log('Attempting Signup...');
       const response = await axios.post('/user/sign-up', signup);
       console.log('Signup successful:', response.data);
+      toast.sucess('Signup Sucessful');
       navigate('/user/login');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
       setError('Signup failed. Please check your details and try again.');
+      toast.error('Signup failed, Please check ur value');
     } finally {
       setIsSubmitting(false);
     }

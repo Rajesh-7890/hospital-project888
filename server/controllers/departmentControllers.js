@@ -19,26 +19,20 @@ module.exports.postDepartments = async (req, res) => {
   res.status(200).json({ message: 'Department Added', data: response });
 };
 
-module.exports.getDoctorsByDepartmentID = async (req, res) => {
-  const { departmentID } = req.params;
-
-  // Validate the departmentID format
-  if (!mongoose.Types.ObjectId.isValid(departmentID)) {
-    return res.status(400).json({ message: 'Invalid department ID format' });
-  }
+module.exports.getDoctorByDepartmentId = async (req, res) => {
+  const { departmentId } = req.params;
 
   try {
-    // Find doctors by department ID
-    const doctors = await Doctor.find({ department: departmentID });
-
-    if (doctors.length === 0) {
-      return res
-        .status(404)
-        .json({ message: 'No doctors found for this department' });
-    }
-
+    // Ensure the departmentId is converted to an ObjectId
+    const doctors = await Doctor.find({
+      department: new mongoose.Types.ObjectId(departmentId),
+    }).populate('department', 'name');
+    console.log('Doctors found:', doctors); // Log the results
     res.status(200).json(doctors);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
+    console.error('Error finding doctors by department:', error);
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching doctors.' });
   }
 };

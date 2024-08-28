@@ -14,11 +14,10 @@ module.exports.getDoctorByDepartmentId = async (req, res) => {
   const { departmentId } = req.params;
 
   try {
-    // Ensure the departmentId is converted to an ObjectId
     const doctors = await Doctor.find({
       department: new mongoose.Types.ObjectId(departmentId),
     }).populate('department', 'name');
-    console.log('Doctors found:', doctors); // Log the results
+    console.log('Doctors found:', doctors);
     res.status(200).json(doctors);
   } catch (error) {
     console.error('Error finding doctors by department:', error);
@@ -156,4 +155,43 @@ module.exports.getDoctorById = async (req, res) => {
   const { id } = req.params;
   const user = await Doctor.findById(id);
   res.status(200).json(user);
+};
+
+// module.exports.getDoctorByDepartmentId = async (req, res) => {
+//   const { departmentId } = req.params;
+
+//   try {
+//     // Ensure the departmentId is converted to an ObjectId
+//     const doctors = await Doctor.find({
+//       department: new mongoose.Types.ObjectId(departmentId),
+//     }).populate('department', 'name');
+//     console.log('Doctors found:', doctors); // Log the results
+//     res.status(200).json(doctors);
+//   } catch (error) {
+//     console.error('Error finding doctors by department:', error);
+//     res
+//       .status(500)
+//       .json({ error: 'An error occurred while fetching doctors.' });
+//   }
+// };
+
+module.exports.getDoctorByDepartmentId = async (req, res) => {
+  const { departmentId } = req.params;
+
+  try {
+    const doctors = await Doctor.find({
+      department: new mongoose.Types.ObjectId(departmentId),
+    }).populate('department', 'name');
+
+    if (doctors.length === 0) {
+      return res.status(404).json({ message: 'No doctors found' });
+    }
+
+    res.status(200).json(doctors);
+  } catch (error) {
+    console.error('Error finding doctors by department:', error);
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching doctors.' });
+  }
 };

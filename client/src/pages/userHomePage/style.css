@@ -1,12 +1,10 @@
-/* General layout */
 .user-home {
   display: flex;
   height: 100vh;
 }
 
-/* Sidebar styles */
 .sidebar {
-  background-color: #faebd7; /* Blue background */
+  background-color: #faebd7;
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -35,12 +33,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-left: 30px;
+  padding-top: 30px;
 }
 
 .navcontent {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Added gap for spacing between links */
+  gap: 10px;
 }
 
 .navcontent .link,
@@ -53,6 +53,7 @@
 
 .logout {
   margin-top: auto;
+  padding-bottom: 50px;
 }
 
 /* Booking form styles */
@@ -110,6 +111,7 @@
 
 .form-group textarea {
   resize: none;
+  font-size: 1.2em;
 }
 
 .time-group {
@@ -122,21 +124,14 @@
   margin-bottom: 20px;
 }
 
-/* Centering the submit button with a smaller size */
 .submit-btn {
   background-color: #0a6ba0;
   color: white;
   border: none;
-  padding: 15px 30px; /* Adjust padding to make the button smaller */
+  padding: 15px 30px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.2em;
-  display: block;
-  margin: 20px auto 0 auto; /* Center the button horizontally */
-  text-align: center;
-  width: auto; /* Remove full width */
-  height: fit-content;
-  max-width: 200px; /* Optional: Limit the maximum width of the button */
 }
 
 .submit-btn:hover {

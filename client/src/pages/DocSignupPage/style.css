@@ -6,15 +6,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Ensures the body covers the full viewport height */
-  overflow-y: auto; /* Allows vertical scrolling if content overflows */
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
-.docSignup {
+.doc-ignup {
   width: 100%;
-  max-width: 800px; /* Adjusted for horizontal layout */
+  max-width: 800px;
   padding: 20px;
-  margin: 20px 0; /* Adds some margin at the top and bottom */
+  margin: 20px 0;
 }
 
 .signup-container {
@@ -34,7 +34,7 @@ h2 {
 form {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(2, 1fr); /* Two columns for horizontal layout */
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .form-group {
@@ -59,11 +59,11 @@ form {
 }
 
 .form-group textarea {
-  resize: vertical; /* Allows resizing only vertically */
+  resize: vertical;
 }
 
 .signup-button {
-  grid-column: span 2; /* Button spans across both columns */
+  grid-column: span 2;
   width: 100%;
   padding: 12px;
   background-color: #00796b;
