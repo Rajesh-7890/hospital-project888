@@ -28,3 +28,13 @@ module.exports.bookAppointments = async (req, res) => {
       .json({ message: 'Error booking slot', error: error.message });
   }
 };
+
+module.exports.getAppointmentById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const appointment = await Appointment.findById(id);
+    res.status(201).json(appointment);
+  } catch (e) {
+    res.status(500).json({ AppointmentError: e.message });
+  }
+};

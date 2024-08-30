@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import axios from '../../utils/axios';
+import Sidebar from '../../components/UserSidebar';
 import './style.css';
 
 const UserHome = () => {
@@ -23,6 +23,7 @@ const UserHome = () => {
     try {
       const response = await axios.get('/department');
       setDepartments(response.data);
+      console.log({ Departments: response.data });
     } catch (err) {
       console.log('Error fetching departments:', err.message);
     }
@@ -44,7 +45,7 @@ const UserHome = () => {
   const onChange = (e, key) => {
     setappointment({ ...appointment, [key]: e.target.value });
 
-    if (key === 'department') {
+    if (key == 'department') {
       fetchDoctors(e.target.value);
     }
   };
@@ -56,7 +57,8 @@ const UserHome = () => {
         '/appointment/book-appointment',
         appointment
       );
-      toast.success('Slot booking sucessful');
+
+      toast.success('Appointment Bokked sucessfully');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
       toast.error('Appointment booking failed');
@@ -66,28 +68,7 @@ const UserHome = () => {
   return (
     <div className="user-home">
       <div className="sidebar">
-        <div className="details">
-          <img className="img1" src="/PatientProfilePic.png" />
-          <p className="name">Patient Name</p>
-        </div>
-        <div className="contents">
-          <div className="navcontent">
-            <NavLink className="link" to="">
-              Home
-            </NavLink>
-            <NavLink className="link" to="">
-              Booking
-            </NavLink>
-            <NavLink className="link" to="">
-              Add Slot
-            </NavLink>
-          </div>
-          <div className="logout">
-            <NavLink className="link" to="">
-              Logout
-            </NavLink>
-          </div>
-        </div>
+        <Sidebar />
       </div>
 
       {/* booking slot form */}

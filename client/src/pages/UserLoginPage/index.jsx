@@ -25,12 +25,13 @@ const UserLogin = () => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.id);
       toast.success('Login sucessfully');
+      console.log({ message: response.data });
 
       navigate('/user/home');
     } catch (e) {
       toast.error('Email id or Password is incorrect');
       console.log('Email id or Password is incorrect');
-      // console.log(e);
+      // console.log(e.message);
     }
   };
 
@@ -43,7 +44,6 @@ const UserLogin = () => {
           <input
             id="email"
             type="email"
-            name="email"
             placeholder="Email:"
             onChange={e => onChange(e, 'email')}
           />
@@ -53,7 +53,6 @@ const UserLogin = () => {
           <input
             id="password"
             type="password"
-            name="password"
             placeholder="Password:"
             onChange={e => onChange(e, 'password')}
           />

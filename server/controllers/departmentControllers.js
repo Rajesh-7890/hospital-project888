@@ -1,8 +1,13 @@
 const Department = require('../db/models/departmentSchema');
 
 module.exports.getDepartments = async (req, res) => {
-  const departments = await Department.find();
-  res.status(200).json(departments);
+  try {
+    const departments = await Department.find();
+    res.status(200).json(departments);
+  } catch (error) {
+    console.error('Error fetching departments:', error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
 
 module.exports.getDepartmentsById = async (req, res) => {
@@ -17,22 +22,4 @@ module.exports.postDepartments = async (req, res) => {
     image: `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`,
   });
   res.status(200).json({ message: 'Department Added', data: response });
-};
-
-module.exports.getDoctorByDepartmentId = async (req, res) => {
-  const { departmentId } = req.params;
-
-  try {
-    // Ensure the departmentId is converted to an ObjectId
-    const doctors = await Doctor.find({
-      department: new mongoose.Types.ObjectId(departmentId),
-    }).populate('department', 'name');
-    console.log('Doctors found:', doctors); // Log the results
-    res.status(200).json(doctors);
-  } catch (error) {
-    console.error('Error finding doctors by department:', error);
-    res
-      .status(500)
-      .json({ error: 'An error occurred while fetching doctors.' });
-  }
 };

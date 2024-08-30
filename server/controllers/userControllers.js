@@ -134,7 +134,11 @@ module.exports.resetpassword = async (req, res) => {
 };
 
 module.exports.getUserById = async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(id);
-  res.status(200).json(user);
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    res.status(201).json(user);
+  } catch (e) {
+    return res.status(500).json(e);
+  }
 };

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from '../../utils/axios';
 
 import { useState } from 'react';
@@ -34,7 +35,7 @@ const UserSignup = () => {
       console.log('Attempting Signup...');
       const response = await axios.post('/user/sign-up', signup);
       console.log('Signup successful:', response.data);
-      toast.sucess('Signup Sucessful');
+      toast.success('Signup Sucessful');
       navigate('/user/login');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
@@ -50,7 +51,6 @@ const UserSignup = () => {
       <div className="userSignup">
         <div className="signup-container">
           <h2>User Sign Up</h2>
-          {error && <p className="error">{error}</p>}
           <div className="div">
             <div className="form-group">
               <label>First Name</label>
@@ -96,9 +96,7 @@ const UserSignup = () => {
               <label>Gender</label>
 
               <select onChange={e => onChange(e, 'gender')}>
-                <option value="" disabled>
-                  Select Gender
-                </option>
+                <option>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -115,6 +113,8 @@ const UserSignup = () => {
                 onChange={e => onChange(e, 'address')}
               ></textarea>
             </div>
+            {error && <p className="error">{error}</p>}
+
             <button
               onClick={onSignupBtn}
               className="signup-button"

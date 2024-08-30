@@ -157,24 +157,6 @@ module.exports.getDoctorById = async (req, res) => {
   res.status(200).json(user);
 };
 
-// module.exports.getDoctorByDepartmentId = async (req, res) => {
-//   const { departmentId } = req.params;
-
-//   try {
-//     // Ensure the departmentId is converted to an ObjectId
-//     const doctors = await Doctor.find({
-//       department: new mongoose.Types.ObjectId(departmentId),
-//     }).populate('department', 'name');
-//     console.log('Doctors found:', doctors); // Log the results
-//     res.status(200).json(doctors);
-//   } catch (error) {
-//     console.error('Error finding doctors by department:', error);
-//     res
-//       .status(500)
-//       .json({ error: 'An error occurred while fetching doctors.' });
-//   }
-// };
-
 module.exports.getDoctorByDepartmentId = async (req, res) => {
   const { departmentId } = req.params;
 

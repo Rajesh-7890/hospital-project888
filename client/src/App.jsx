@@ -19,20 +19,19 @@ const App = () => {
         <Route path="/doctor/login" element={<DocLogin />} />
         <Route path="/doctor/signup" element={<DocSignup />} />
 
-        <Route path="/user/home" element={<UserHome />} />
-        <Route path="/doctor/home" element={<DocHome />} />
-
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/signup" element={<UserSignup />} />
 
+        <Route path="/user/home" element={<UserHome />} />
+        <Route path="/user/slotpage" element={<UserSlotPage />} />
+
         <Route element={<PrivateRoute role="doctor" />}>
+          <Route path="/doctor/home" element={<DocHome />} />
           <Route path="/doctor/bookingpage" element={<DocBookingPage />} />
           <Route path="/doctor/slotpage" element={<DocSlotPage />} />
         </Route>
 
-        <Route element={<PrivateRoute role="user" />}>
-          <Route path="/user/slotpage" element={<UserSlotPage />} />
-        </Route>
+        <Route element={<PrivateRoute role="user" />}></Route>
       </Routes>
     </>
   );
