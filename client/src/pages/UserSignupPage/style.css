@@ -12,9 +12,9 @@
 
 .userSignup {
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   padding: 20px;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .signup-container {
@@ -33,7 +33,7 @@ h2 {
 
 .div {
   display: grid;
-  gap: 20px;
+  gap: 10px;
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -74,6 +74,7 @@ h2 {
   font-size: 16px;
   font-weight: bold;
   margin-top: 20px;
+  /* margin-left: 500px; */
 }
 
 .signup-button:hover {

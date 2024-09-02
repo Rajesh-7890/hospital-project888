@@ -1,12 +1,19 @@
+const Department = require('./departmentSchema');
+const Doctor = require('./doctorSchema');
+const User = require('./userSchema');
 const mongoose = require('mongoose');
 
 const appointmentSchema = mongoose.Schema({
   department: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Department',
   },
+
   doctor: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Doctor',
   },
+
   date: {
     type: Date,
   },
@@ -24,6 +31,10 @@ const appointmentSchema = mongoose.Schema({
   },
   message: {
     type: String,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User model
   },
 });
 

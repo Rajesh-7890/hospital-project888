@@ -43,6 +43,9 @@ const doctorSchema = mongoose.Schema(
       default: 'doctor', // Default value
       // required: true,
     },
+    specialization: {
+      type: String,
+    },
     department: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Department',

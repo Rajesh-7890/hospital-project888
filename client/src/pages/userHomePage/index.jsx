@@ -5,12 +5,12 @@ import Sidebar from '../../components/UserSidebar';
 import './style.css';
 
 const UserHome = () => {
-  const [appointment, setappointment] = useState({
+  const [appointment, setAppointment] = useState({
     department: '',
     doctor: '',
     date: '',
     time: '',
-    firstname: '',
+    fullname: '',
     mobilenumber: '',
     email: '',
     message: '',
@@ -18,12 +18,18 @@ const UserHome = () => {
 
   const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    // Fetch user ID from localStorage
+    const id = localStorage.getItem('id');
+    setUserId(id);
+  }, []);
 
   const fetchDepartments = async () => {
     try {
       const response = await axios.get('/department');
       setDepartments(response.data);
-      console.log({ Departments: response.data });
     } catch (err) {
       console.log('Error fetching departments:', err.message);
     }
@@ -43,22 +49,22 @@ const UserHome = () => {
   };
 
   const onChange = (e, key) => {
-    setappointment({ ...appointment, [key]: e.target.value });
+    setAppointment({ ...appointment, [key]: e.target.value });
 
-    if (key == 'department') {
+    if (key === 'department') {
       fetchDoctors(e.target.value);
     }
   };
 
   const onBtnClick = async () => {
     try {
-      console.log('Attempting bookingSlot...');
       const response = await axios.post(
         '/appointment/book-appointment',
-        appointment
+        { ...appointment, user: userId } // Include user ID in request payload
       );
+      console.log({ responses: response.data });
 
-      toast.success('Appointment Bokked sucessfully');
+      toast.success('Appointment booked successfully');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
       toast.error('Appointment booking failed');
@@ -104,7 +110,7 @@ const UserHome = () => {
               >
                 <option>Select Your Doctor</option>
                 {doctors.map(doctor => (
-                  <option key={doctor._id}>
+                  <option key={doctor._id} value={doctor._id}>
                     Dr. {doctor.firstname} {doctor.lastname}
                   </option>
                 ))}
@@ -149,7 +155,6 @@ const UserHome = () => {
                 id="mobile"
                 name="mobile"
                 placeholder="Mobile Number"
-                required
                 onChange={e => onChange(e, 'mobilenumber')}
               />
             </div>
@@ -176,7 +181,7 @@ const UserHome = () => {
               ></textarea>
             </div>
 
-            <button type="submit" className="submit-btn" onClick={onBtnClick}>
+            <button type="button" className="submit-btn" onClick={onBtnClick}>
               Submit
             </button>
           </form>

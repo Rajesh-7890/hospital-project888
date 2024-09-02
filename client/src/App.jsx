@@ -18,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/doctor/login" element={<DocLogin />} />
         <Route path="/doctor/signup" element={<DocSignup />} />
+        <Route path="/doctor/home" element={<DocHome />} />
 
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/signup" element={<UserSignup />} />
@@ -26,7 +27,6 @@ const App = () => {
         <Route path="/user/slotpage" element={<UserSlotPage />} />
 
         <Route element={<PrivateRoute role="doctor" />}>
-          <Route path="/doctor/home" element={<DocHome />} />
           <Route path="/doctor/bookingpage" element={<DocBookingPage />} />
           <Route path="/doctor/slotpage" element={<DocSlotPage />} />
         </Route>
