@@ -1,13 +1,13 @@
+import { Tag, Button } from 'antd';
 import Sidebar from '../../components/UserSidebar';
 import axios from '../../utils/axios';
 import { useState, useEffect } from 'react';
-
 import './style.css';
 
 const UserSlotPage = () => {
   const [appointments, setAppointments] = useState([]);
-  const userId = localStorage.getItem('id'); // Get user ID from localStorage
-  console.log(userId);
+  const userId = localStorage.getItem('id');
+
   const getAppointmentDetails = async () => {
     try {
       if (!userId) {
@@ -15,9 +15,8 @@ const UserSlotPage = () => {
         return;
       }
 
-      const response = await axios.get(`/appointment/${userId}`);
-      setAppointments(response.data.appointments); // Adjust based on API response structure
-      console.log({ appointments: response.data.appointments });
+      const response = await axios.get(`/appointment/api/${userId}`);
+      setAppointments(response.data.appointments);
     } catch (error) {
       console.error('Error fetching appointments:', error.message);
     }
@@ -40,7 +39,17 @@ const UserSlotPage = () => {
                 <h3>
                   {appointment.doctor.firstname} {appointment.doctor.lastname}
                 </h3>
-                <span className="status confirmed">Confirmed</span>
+                <Tag
+                  color={
+                    appointment.status === 'Pending'
+                      ? 'orange'
+                      : appointment.status === 'Accepted'
+                      ? 'green'
+                      : 'red'
+                  }
+                >
+                  {appointment.status}
+                </Tag>
               </div>
               <div className="booking-details">
                 <p>
@@ -55,8 +64,9 @@ const UserSlotPage = () => {
                 </p>
               </div>
               <div className="booking-footer">
-                {/* Add buttons for rescheduling or canceling if needed */}
-                <button className="cancel-btn">Delete Booking</button>
+                <Button type="primary" danger>
+                  Delete Booking
+                </Button>
               </div>
             </div>
           ))

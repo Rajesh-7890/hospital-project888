@@ -2,9 +2,13 @@
   display: flex;
   width: 75%;
 }
-.table-contents {
+/* .table-contents {
   display: flex;
   flex-direction: column;
+  padding: 50px;
+} */
+.table-contents {
+  display: grid;
   padding: 50px;
 }
 .booking-card {

@@ -4,10 +4,10 @@ const router = express.Router();
 
 router.get('/', controllers.getappointments);
 router.get('/:id', controllers.getAppointmentById);
-router.delete('/:id', controllers.deleteAppointmentById);
-// router.get('/:userId', controllers.getAppointmentsByUserId);
+router.delete('/user/:userId', controllers.deleteAppointmentByUserId);
 router.get('/api/:userId', controllers.getAppointmentsByUserId);
-// router.get('/user/:userId', controllers.getAppointmentsByUserId);
+router.get('/doctor/:doctorId', controllers.getAppointmentByDoctorId);
 router.post('/book-appointment', controllers.bookAppointments);
+router.patch('/update/:appointmentId', controllers.handleStatusChange);
 
 module.exports = router;

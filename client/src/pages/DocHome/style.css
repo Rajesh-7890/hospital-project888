@@ -1,0 +1,12 @@
+.doc-home {
+  display: flex;
+}
+.doc-contents {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+}
+
+.appointment-table {
+  margin-top: 20px;
+}

@@ -29,12 +29,17 @@ const appointmentSchema = mongoose.Schema({
   email: {
     type: String,
   },
+  status: {
+    type: String,
+    enum: ['Pending', 'Accepted', 'Rejected'],
+    default: 'Pending',
+  },
   message: {
     type: String,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the User model
+    ref: 'User',
   },
 });
 

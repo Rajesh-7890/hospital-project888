@@ -1,4 +1,5 @@
 const Appointment = require('../db/models/appointmentSchema');
+const mongoose = require('mongoose');
 
 module.exports.getappointments = async (req, res) => {
   const appointments = await Appointment.find()
@@ -8,40 +9,24 @@ module.exports.getappointments = async (req, res) => {
 };
 
 module.exports.bookAppointments = async (req, res) => {
-  const {
-    department,
-    doctor,
-    date,
-    time,
-    fullname,
-    mobilenumber,
-    email,
-    message,
-    user,
-  } = req.body;
-
   try {
-    const newAppointment = new Appointment({
-      department,
-      doctor,
-      date,
-      time,
-      fullname,
-      mobilenumber,
-      email,
-      message,
-      user, // Include user ID in the appointment document
+    const response = await Appointment.create({
+      department: req.body.department,
+      doctor: req.body.doctor,
+      date: req.body.date,
+      time: req.body.time,
+      email: req.body.email,
+      mobilenumber: req.body.mobilenumber,
+      message: req.body.message,
+      fullname: req.body.fullname,
+      user: req.body.user,
     });
 
-    await newAppointment.save();
-    res.status(201).json({
-      message: 'Appointment booked successfully',
-      appointment: newAppointment,
-    });
-  } catch (error) {
     res
-      .status(500)
-      .json({ message: 'Error booking appointment', error: error.message });
+      .status(200)
+      .json({ message: 'Slot Booked successfully', data: response });
+  } catch (error) {
+    res.status(500).json({ message: 'Error booking slot:', e: error.message });
   }
 };
 
@@ -62,35 +47,22 @@ module.exports.getAppointmentById = async (req, res) => {
   }
 };
 
-module.exports.deleteAppointmentById = async (req, res) => {
+module.exports.deleteAppointmentByUserId = async (req, res) => {
   try {
-    const { id } = req.params;
-    const response = await Appointment.findByIdAndDelete(id);
+    const { userId } = req.params;
+    const response = await Appointment.findOneAndDelete({ user: userId });
+
     if (!response) {
-      return res.status(404).json({ message: 'Department not found' });
+      return res
+        .status(404)
+        .json({ message: 'No appointment found for this user' });
     }
-    res.status(200).json({ message: 'Department deleted successfully' });
+    res.status(200).json({ message: 'Appointment deleted successfully' });
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
-// module.exports.getAppointmentsByUserId = async (req, res) => {
-//   const userId = req.params.userId;
-
-//   try {
-//     const appointments = await Appointment.find({ user: userId })
-//       .populate('doctor') // Populate doctor details
-//       .populate('department'); // Populate department details if needed
-
-//     res.status(200).json({ appointments });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: 'Error fetching appointments',
-//       error: error.message,
-//     });
-//   }
-// };
 module.exports.getAppointmentsByUserId = async (req, res) => {
   const userId = req.params.userId;
 
@@ -110,5 +82,52 @@ module.exports.getAppointmentsByUserId = async (req, res) => {
     res
       .status(500)
       .json({ message: 'Error fetching appointments', error: error.message });
+  }
+};
+
+module.exports.getAppointmentByDoctorId = async (req, res) => {
+  const { doctorId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+    return res.status(400).json({ message: 'Invalid doctor ID' });
+  }
+
+  try {
+    const appointments = await Appointment.find({
+      doctor: new mongoose.Types.ObjectId(doctorId),
+    });
+
+    if (!appointments.length) {
+      return res
+        .status(404)
+        .json({ message: 'No appointments found for this doctor' });
+    }
+
+    res.json(appointments);
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports.handleStatusChange = async (req, res) => {
+  const { appointmentId } = req.params;
+  const { status } = req.body;
+
+  try {
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      appointmentId,
+      { status: status },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ error: 'Appointment not found' });
+    }
+
+    res.status(200).json(updatedAppointment);
+  } catch (error) {
+    console.error('Error updating appointment status:', error);
+    res.status(500).json({ error: 'Failed to update appointment status' });
   }
 };

@@ -58,10 +58,10 @@ const UserHome = () => {
 
   const onBtnClick = async () => {
     try {
-      const response = await axios.post(
-        '/appointment/book-appointment',
-        { ...appointment, user: userId } // Include user ID in request payload
-      );
+      const response = await axios.post('/appointment/book-appointment', {
+        ...appointment,
+        user: userId,
+      });
       console.log({ responses: response.data });
 
       toast.success('Appointment booked successfully');

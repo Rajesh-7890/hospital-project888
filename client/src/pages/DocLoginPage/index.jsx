@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from '../../utils/axios';
-import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import './style.css';
@@ -25,20 +24,19 @@ const DocLogin = () => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.id);
 
+      toast.success('Login successful');
       navigate('/doctor/home');
     } catch (e) {
-      toast.error('Email id or Password is incorrect');
-      console.log('Email id or Password is incorrect');
-      // console.log(e);
+      toast.error('Email ID or Password is incorrect');
+      console.error('Login error:', e);
     }
-    toast.success('Login Sucessfull');
   };
 
   return (
     <div className="doclogin">
       <div className="loginContainer">
         <ToastContainer />
-        <h2>DOCTOR Login</h2>
+        <h2>Doctor Login</h2>
         <div className="inputGroup">
           <label htmlFor="email">Email ID:</label>
           <input
@@ -46,6 +44,7 @@ const DocLogin = () => {
             type="email"
             placeholder="Email"
             onChange={e => onChange(e, 'email')}
+            value={login.email} 
           />
         </div>
         <div className="inputGroup">
@@ -55,10 +54,11 @@ const DocLogin = () => {
             type="password"
             placeholder="Password"
             onChange={e => onChange(e, 'password')}
+            value={login.password}
           />
         </div>
         <div className="forgotPassword">
-          <Link to="">Forgot password</Link>
+          <Link to="">Forgot password?</Link>
         </div>
         <div className="loginButton">
           <button className="btn" onClick={onLogin}>
@@ -66,7 +66,7 @@ const DocLogin = () => {
           </button>
         </div>
         <div className="signupLink">
-          Don't have an account? <Link to="/signup">SignUp</Link>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </div>
       </div>
     </div>
