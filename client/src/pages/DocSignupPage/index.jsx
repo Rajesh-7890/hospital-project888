@@ -1,15 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from '../../utils/axios';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import './style.css';
 
 const DocSignup = () => {
   const navigate = useNavigate();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
+
+  const [departments, setDepartments] = useState([]);
 
   const [signup, setSignup] = useState({
     firstname: '',
@@ -22,34 +21,56 @@ const DocSignup = () => {
     DOB: '',
     specialization: '',
     department: '',
-    image: '',
+    image: null,
   });
 
   const onChange = (e, key) => {
-    setSignup({ ...signup, [key]: e.target.value });
+    const value = key === 'image' ? e.target.files[0] : e.target.value;
+    setSignup({ ...signup, [key]: value });
   };
 
-  const onSignupBtn = async () => {
+  const onSignupBtn = async e => {
+    e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
     try {
       console.log('Attempting Signup...');
-      const response = await axios.post('/doctor/sign-up', signup);
+
+      const formData = new FormData();
+      Object.keys(signup).forEach(key => {
+        formData.append(key, signup[key]);
+      });
+
+      const response = await axios.post('/doctor/sign-up', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       console.log('Signup successful:', response.data);
-      toast.success('Signup Sucessful');
-      navigate('/doctor/login');
+      toast.success('Signup Successful');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
-      setError('Signup failed. Please check your details and try again.');
-      toast.error('Signup failed, Please check ur value');
+      toast.error('Signup failed, please check your values');
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const fetchDepartments = async () => {
+    try {
+      const response = await axios.get('/department');
+      setDepartments(response.data);
+    } catch (err) {
+      console.log('Error fetching departments:', err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
+
   return (
     <div className="main">
-      <div className="doc-ignup">
+      <div className="doc-signup">
         <div className="signup-container">
           <h2>DOCTOR Sign Up</h2>
           <form>
@@ -93,13 +114,21 @@ const DocSignup = () => {
                 required
                 onChange={e => onChange(e, 'mobilenumber')}
               />
-              <label>Department</label>
-              <input
-                type="text"
-                placeholder="Department:"
+
+              <label>Select Department</label>
+              <select
+                id="department"
                 required
                 onChange={e => onChange(e, 'department')}
-              />
+              >
+                <option value="">Select Your Department</option>
+
+                {departments.map(department => (
+                  <option key={department._id} value={department._id}>
+                    {department.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form-group">
               <label>Specialization</label>
@@ -115,6 +144,8 @@ const DocSignup = () => {
                 required
                 onChange={e => onChange(e, 'gender')}
               >
+                <option value="">Select Gender</option>{' '}
+                {/* Add a default option */}
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -122,7 +153,7 @@ const DocSignup = () => {
             </div>
             <div className="form-group">
               <label>Date of Birth</label>
-              <input type="date" required onChange={e => onChange(e, 'date')} />
+              <input type="date" required onChange={e => onChange(e, 'DOB')} />
               <label htmlFor="address">Address</label>
               <textarea
                 placeholder="Address:"
@@ -138,10 +169,17 @@ const DocSignup = () => {
                 onChange={e => onChange(e, 'image')}
               />
             </div>
-            <button className="signup-button">Sign Up</button>
+            <button
+              className="signup-button"
+              onClick={onSignupBtn}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+            </button>
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

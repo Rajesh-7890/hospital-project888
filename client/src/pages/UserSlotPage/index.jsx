@@ -63,11 +63,6 @@ const UserSlotPage = () => {
                   <strong>Specialization:</strong> {appointment.department.name}
                 </p>
               </div>
-              <div className="booking-footer">
-                <Button type="primary" danger>
-                  Delete Booking
-                </Button>
-              </div>
             </div>
           ))
         ) : (

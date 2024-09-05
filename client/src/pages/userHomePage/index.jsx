@@ -21,7 +21,6 @@ const UserHome = () => {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    // Fetch user ID from localStorage
     const id = localStorage.getItem('id');
     setUserId(id);
   }, []);
@@ -62,11 +61,14 @@ const UserHome = () => {
         ...appointment,
         user: userId,
       });
-      console.log({ responses: response.data });
 
+      console.log({ responses: response.data });
       toast.success('Appointment booked successfully');
     } catch (e) {
-      console.log('Signup failed:', e.response ? e.response.data : e.message);
+      console.log(
+        'Appointment  failed:',
+        e.response ? e.response.data : e.message
+      );
       toast.error('Appointment booking failed');
     }
   };

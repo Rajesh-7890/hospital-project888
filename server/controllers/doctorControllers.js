@@ -103,7 +103,7 @@ module.exports.forgotpasswords = async (req, res) => {
   }
 
   const resetToken = jwt.sign({ email: email }, process.env.TOKEN, {
-    expiresIn: 300,
+    expiresIn: 3000,
   });
 
   let transporter = nodemailer.createTransport({
@@ -153,8 +153,8 @@ module.exports.resetpasswords = async (req, res) => {
 
 module.exports.getDoctorById = async (req, res) => {
   const { id } = req.params;
-  const user = await Doctor.findById(id);
-  res.status(200).json(user);
+  const doctor = await Doctor.findById(id);
+  res.status(200).json(doctor);
 };
 
 module.exports.getDoctorByDepartmentId = async (req, res) => {
@@ -168,7 +168,6 @@ module.exports.getDoctorByDepartmentId = async (req, res) => {
     if (doctors.length === 0) {
       return res.status(404).json({ message: 'No doctors found' });
     }
-
     res.status(200).json(doctors);
   } catch (error) {
     console.error('Error finding doctors by department:', error);
