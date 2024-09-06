@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Department = require('./departmentSchema');
-const Hospital = require('./hospitalSchema');
 
 const doctorSchema = mongoose.Schema(
   {
@@ -49,12 +48,6 @@ const doctorSchema = mongoose.Schema(
     department: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Department',
-    },
-
-    hospital: {
-      type: mongoose.Schema.Types.ObjectId,
-      name: String,
-      ref: 'Hospital',
     },
   },
   {

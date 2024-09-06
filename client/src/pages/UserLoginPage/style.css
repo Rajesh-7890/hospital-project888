@@ -1,6 +1,6 @@
 .userlogin {
   font-family: Arial, sans-serif;
-  background: url('/img1.jpg') no-repeat center center fixed;
+  background: url('/background.jpg') no-repeat center center fixed;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -10,17 +10,17 @@
 }
 
 .login-container {
-  background-color: rgba(0, 0, 0, 0.088);
+  background-color: rgba(0, 0, 0, 0.701);
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.615);
   width: 400px;
   text-align: center;
 }
 
 .login-container h2 {
   margin-bottom: 20px;
-  color: #333;
+  color: white;
 }
 
 .input-group {
@@ -31,7 +31,7 @@
 .input-group label {
   display: block;
   margin-bottom: 5px;
-  color: #555;
+  color: white;
 }
 
 .input-group input {
@@ -70,13 +70,14 @@
 }
 
 .btn:hover {
-  color: black;
+  color: white;
   background-color: #0056b3;
 }
 
 .signup-link {
   margin-top: 15px;
-  font-size: 14px;
+  font-size: 16px;
+  color: white;
 }
 
 .signup-link a {

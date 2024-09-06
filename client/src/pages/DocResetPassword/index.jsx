@@ -57,9 +57,11 @@ const DocResetPassword = () => {
           value={confirmPassword}
         />
       </div>
-      <button className="btn" onClick={handleResetPassword}>
-        Reset Password
-      </button>
+      <div className="reset-button">
+        <button className="reset-click" onClick={handleResetPassword}>
+          Reset Password
+        </button>
+      </div>
     </div>
   );
 };

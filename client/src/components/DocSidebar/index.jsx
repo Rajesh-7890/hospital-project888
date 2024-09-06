@@ -34,12 +34,12 @@ const Sidebar = () => {
         <NavLink className="link" to="/doctor/home">
           Home
         </NavLink>
-        <NavLink className="link" to="/doctor/bookings">
+        {/* <NavLink className="link" to="/doctor/bookings">
           Booking
         </NavLink>
         <NavLink className="link" to="/doctor/addslot">
           Add Slot
-        </NavLink>
+        </NavLink> */}
       </div>
       <p className="link logout" onClick={logout}>
         Logout
