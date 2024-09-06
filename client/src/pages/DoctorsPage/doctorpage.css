@@ -1,0 +1,12 @@
+.admin-home {
+  display: flex;
+}
+.admin-contents {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+}
+
+.appointment-table {
+  margin-top: 20px;
+}

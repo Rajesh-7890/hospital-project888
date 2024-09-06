@@ -1,0 +1,9 @@
+.admin-home {
+  display: flex;
+  gap: 100px;
+  height: 100vh;
+}
+
+/* .admin-contents {
+  background-color: aqua;
+} */

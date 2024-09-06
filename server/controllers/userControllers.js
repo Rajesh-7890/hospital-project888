@@ -68,13 +68,15 @@ module.exports.loginUser = async (req, res) => {
     console.log('error');
   }
 
-  const key = jwt.sign({ id: user._id, role: 'user' }, process.env.KEY, {
-    expiresIn: '500d',
+  const token = jwt.sign({ id: user._id, role: 'user' }, process.env.KEY, {
+    expiresIn: '365d',
   });
 
-  res
-    .status(201)
-    .json({ message: 'You are logged in', token: key, id: user._id });
+  res.status(201).json({
+    message: 'You are logged in',
+    Token: token,
+    id: user._id,
+  });
 };
 
 module.exports.forgotpassword = async (req, res) => {

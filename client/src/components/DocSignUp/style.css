@@ -1,6 +1,6 @@
 .main {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #e0f7fa;
+  /* background-color: #e0f7fa; */
   margin: 0;
   padding: 0;
   display: flex;
@@ -8,6 +8,7 @@
   align-items: center;
   min-height: 100vh;
   overflow-y: auto;
+  background-color: white;
 }
 
 .doc-ignup {
@@ -18,7 +19,7 @@
 }
 
 .signup-container {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);

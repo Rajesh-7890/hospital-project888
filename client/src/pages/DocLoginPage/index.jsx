@@ -23,7 +23,6 @@ const DocLogin = () => {
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.id);
-
       toast.success('Login successful');
       navigate('/doctor/home');
     } catch (e) {

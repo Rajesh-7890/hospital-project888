@@ -3,10 +3,10 @@ import { useState } from 'react';
 import axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
 
-import './style.css';
+import './adminloginpage.css';
 import { toast } from 'react-toastify';
 
-const UserLogin = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
 
   const [login, setLogin] = useState({
@@ -20,22 +20,25 @@ const UserLogin = () => {
 
   const onLogin = async () => {
     try {
-      const response = await axios.post('/user/login-in', login);
+      const response = await axios.post('/admin/login-in', login);
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.id);
-      toast.success('Login successful');
-      navigate('/user/home');
+      toast.success('Login sucessfully');
+      console.log({ message: response.data });
+
+      navigate('/admin/home');
     } catch (e) {
-      toast.error('Email ID or Password is incorrect');
-      console.error('Login error:', e);
+      toast.error('Email id or Password is incorrect');
+      console.log('Email id or Password is incorrect');
+      // console.log(e.message);
     }
   };
 
   return (
     <div className="userlogin">
       <div className="login-container">
-        <h2>USER Login</h2>
+        <h2>Admin Login</h2>
         <div className="input-group">
           <label htmlFor="email">Email ID</label>
           <input
@@ -54,20 +57,15 @@ const UserLogin = () => {
             onChange={e => onChange(e, 'password')}
           />
         </div>
-        <div className="forgot-password">
-          <Link to="">Forgot password</Link>
-        </div>
+
         <div className="button">
           <button className="btn" onClick={onLogin}>
             Login
           </button>
-        </div>
-        <div className="signup-link">
-          Don't have an account? <Link to="/user/signup">SignUp</Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default UserLogin;
+export default AdminLogin;

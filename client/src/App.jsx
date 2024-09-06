@@ -1,6 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/A-HomePage';
+import AdminLogin from './pages/AdminLoginPage';
+import AdminHome from './pages/AdminHomePage';
+import DoctorPage from './pages/DoctorsPage';
 import DocLogin from './pages/DocLoginPage';
-import DocSignup from './pages/DocSignupPage';
 import UserLogin from './pages/UserLoginPage';
 import UserSignup from './pages/UserSignupPage';
 import UserHome from './pages/userHomePage';
@@ -20,8 +23,15 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route element={<PrivateRoute role="admin" />}>
+          <Route path="/admin/home" element={<AdminHome />} />
+          <Route path="/admin/doctor" element={<DoctorPage />} />
+        </Route>
+
         <Route path="/doctor/login" element={<DocLogin />} />
-        <Route path="/doctor/signup" element={<DocSignup />} />
         <Route path="/doctor/forgotpassword" element={<DocForgotPassword />} />
         <Route path="/doctor/reset/:token" element={<DocResetPassword />} />
 

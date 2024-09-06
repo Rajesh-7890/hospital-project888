@@ -1,0 +1,195 @@
+/* Navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 20px 20px;
+  color: #fff;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.navbar-brand h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
+
+/* Secondary Navbar styling */
+.secondary-navbar {
+  background-color: #007bff;
+  padding: 10px 0;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+  padding: 20px;
+}
+
+.secondary-navbar-links a:hover {
+  color: greenyellow;
+}
+
+/* Welcome section styling */
+.welcome-section {
+  margin: 40px auto;
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.047);
+}
+
+.welcome-section h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.subline {
+  border: 0;
+  height: 2px;
+  background: #ccc;
+  margin: 10px auto 20px;
+  width: 50%;
+}
+
+/* Info sections styling */
+.info-sections {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 10px;
+  margin: 40px auto;
+}
+
+.info-section {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+  padding: 20px;
+  /* background-color: #f9f9f9; */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  text-align: left;
+  /* gap: 100px; */
+}
+
+.info-section img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.info-section h2 {
+  color: #007bff;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.info-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.info-section p + p {
+  margin-top: 10px;
+}
+
+/* Regional Center section styling */
+
+.regional-center {
+  text-align: center;
+  padding: 20px;
+}
+
+.regional-center img {
+  height: 300px;
+  width: 300px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.regional-center h2 {
+  color: #007bff;
+
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.regional-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+  max-width: 300px;
+  text-align: left;
+}
+
+.column p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.footer {
+  min-height: 400px;
+  display: flex;
+  line-height: 1.6;
+  padding-top: 100px;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #6682a168;
+}
+.footer h6 {
+  font-size: 30px;
+  font-weight: 300;
+  padding-bottom: 1x0px;
+  color: #2db457;
+  justify-content: center;
+  align-items: center;
+}
+.footer h5 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.footbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.foot-bar a {
+  color: black;
+  line-height: 1.6;
+  text-decoration: none;
+}
